@@ -1,5 +1,5 @@
-import './App.css';
 import { createGlobalStyle } from 'styled-components';
+import ToDoList from './ToDoList';
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -49,12 +49,24 @@ const GlobalStyle = createGlobalStyle`
     border-collapse: collapse;
     border-spacing: 0;
   }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    color: ${(props) => props.theme.textColor};
+    background-color: ${(props) => props.theme.bgColor};
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 `;
 
 function App() {
   return (
     <>
-      <GlobalStyle />
+        <GlobalStyle />
+        <ToDoList />
     </>
   );
 }

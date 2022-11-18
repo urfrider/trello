@@ -6,7 +6,7 @@ export interface IToDo {
   text: string;
 }
 
-interface IToDoState {
+export interface IToDoState {
   [key: string]: IToDo[];
 }
 

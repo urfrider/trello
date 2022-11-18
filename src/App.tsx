@@ -6,13 +6,14 @@ import {
 } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { toDoState } from "./atoms";
+import { IToDoState, toDoState } from "./atoms";
 import Board from "./Components/Board";
 import Trashbin from "./Components/Trashbin";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import IconButton from "@mui/material/IconButton";
 import CreateBoard from "./Components/CreateBoard";
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 
 const Wrapper = styled.div`
   display: flex;
@@ -62,12 +63,13 @@ function App() {
     // no movement
     if (!destination) return;
 
+    // movement of board
     if (destination?.droppableId === "boards") {
       setToDos((allBoards) => {
         const temp = { ...allBoards };
         const order = Object.entries(temp);
         const srcTemp = order[source.index];
-        const newTemp = {} as any;
+        const newTemp = {} as IToDoState;
         order.splice(source.index, 1);
         order.splice(destination.index, 0, srcTemp);
         order.forEach((element) => {
@@ -78,7 +80,9 @@ function App() {
           ...newTemp,
         };
       });
+      // movement of to dos
     } else {
+      // to delete
       if (destination.droppableId === "trash") {
         setToDos((allBoards) => {
           const srcTemp = [...allBoards[source.droppableId]];
@@ -124,6 +128,9 @@ function App() {
   };
   return (
     <Container>
+      <Helmet>
+        <title>Trello</title>
+      </Helmet>
       <DragDropContext onDragEnd={onDragEnd}>
         <Wrapper>
           <IconButton onClick={onClick} sx={closeBtnStyle}>

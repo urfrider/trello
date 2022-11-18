@@ -10,6 +10,7 @@ const Card = styled.div<{ isDragging: boolean }>`
   padding: 10px 10px;
   margin-bottom: 5px;
   border-radius: 5px;
+  color: #f1f2f6;
 `;
 
 interface IDraggableCardProps {

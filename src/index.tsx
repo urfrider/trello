@@ -57,8 +57,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
   body {
-    background: linear-gradient(320deg, #eb92be, #ffef78, #63c9b4);
-
+    background: ${(props) => props.theme.bgColor};
   }
   a {
     text-decoration: none;

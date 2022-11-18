@@ -159,11 +159,6 @@ function App() {
               </Boards>
             )}
           </Droppable>
-          {/* <Boards>
-            {Object.keys(toDos).map((boardId) => (
-              <Board toDos={toDos[boardId]} boardId={boardId} key={boardId} />
-            ))}
-          </Boards> */}
         </Wrapper>
         <Trashbin />
         <CreateBoard open={open} setOpen={setOpen} />

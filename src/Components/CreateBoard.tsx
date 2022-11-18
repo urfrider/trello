@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
 import styled from "styled-components";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm, UseFormSetFocus } from "react-hook-form";
 import { toDoSelector } from "../atoms";
 import { useRecoilState } from "recoil";
 
@@ -16,11 +16,16 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 300,
   bgcolor: "background.paper",
   border: "none",
   boxShadow: 24,
   backgroundColor: "#f1f2f6",
+  borderRadius: 2,
+  display: "flex",
+  justifyContent: "center",
+  flexDirection: "column",
+  alignItems: "center",
   p: 4,
 };
 
@@ -34,26 +39,48 @@ const closeBtnStyle = {
 
 const Form = styled.form`
   margin-top: 40px;
+  display: flex;
+  gap: 10px;
+  input {
+    width: 90%;
+    height: 2rem;
+    background-color: white;
+    border: none;
+    &:focus {
+      outline: none;
+    }
+  }
+  button {
+    border-radius: 5px;
+    background-color: #e84393;
+    color: white;
+    border: none;
+    &:hover {
+      background-color: #fd79a8;
+    }
+  }
 `;
 
 interface ICreateBoard {
   open: boolean;
-  setOpen: any;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface IForm {
   category: string;
+  password: string;
 }
 
 export default function CreateBoard({ open, setOpen }: ICreateBoard) {
   const [toDos, setToDos] = useRecoilState(toDoSelector);
-  const { register, setValue, handleSubmit } = useForm<IForm>();
+  const { register, setValue, handleSubmit, setFocus } = useForm<IForm>();
   const onClose = () => {
     setOpen(false);
   };
   const onValid = ({ category }: IForm) => {
     setToDos({ ...toDos, [category]: [] });
     setValue("category", "");
+    setFocus("category");
   };
 
   return (
@@ -85,9 +112,6 @@ export default function CreateBoard({ open, setOpen }: ICreateBoard) {
               />
               <button>Create</button>
             </Form>
-            {/* <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography> */}
           </Box>
         </Fade>
       </Modal>
